@@ -8,14 +8,18 @@ const __dirname = dirname(__filename);
 
 const hasRepeatedDigits = (number: number) => {
     const digits = number.toString();
+    const len = digits.length;
 
-    if (digits.length % 2 !== 0) return false;
+    for (let patternLen = 1; patternLen <= len / 2; patternLen++) {
+        if (len % patternLen !== 0) continue;
 
-    const middle = digits.length / 2;
-    const left = digits.slice(0, middle);
-    const right = digits.slice(middle);
+        const pattern = digits.slice(0, patternLen);
+        const repeated = pattern.repeat(len / patternLen);
 
-    return left === right;
+        if (repeated === digits) return true;
+    }
+
+    return false;
 }
 
 const checkRange = (from: number, to: number) => {
